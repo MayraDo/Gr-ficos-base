@@ -1,0 +1,40 @@
+---
+title: "Gráficos del sistema base de R"
+author: "Mayra D"
+format: html
+---
+
+## Gráficos básicos del sistema base de R
+```{r}
+plot(cars)
+```
+
+```{r}
+plot(
+  x=trees$Height,
+  y=trees$Girth,
+  xlab = "Altura (pulgadas)",
+  ylab = "Diámetro (pies)",
+  main = "Relación de altura versus diámetro de los árboles"
+)
+```
+```{r}
+di <- 438  
+BEFr <- 1.30
+
+biomasa_arbol <- c((trees$Volume*BEFr*di))
+trees$biomasa_arbol <- biomasa_arbol
+View(trees)
+biomasadf <- data.frame(trees$Girth,trees$biomasa_arbol)
+View(biomasadf)
+#Grafica  histograma
+hist(
+  x = trees$biomasa_arbol,
+  breaks = 8,
+  main = "Distribución de la biomasa del árbol Cherry", 
+  xlab = "Biomasa", 
+  ylab = "Frecuencia"
+)
+```
+
+
