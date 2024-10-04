@@ -1,8 +1,18 @@
 ---
 title: "Gráficos del sistema base de R"
+subtitle: "Curso PF-0953"
 author: "Mayra D"
-format: html
+date: 2024-10-03
+format: 
+  html:
+    toc:   true
+theme: yeti
+lang: es
 ---
+```{r}
+library(tidyverse)
+library(palmerpenguins)
+```
 
 ## Gráficos básicos del sistema base de R
 ```{r}
@@ -10,6 +20,9 @@ plot(cars)
 ```
 
 ```{r}
+#| labels: Relación_entre_diámetro_y_altura_de_arbol
+#| code-fold: true
+
 plot(
   x=trees$Height,
   y=trees$Girth,
@@ -37,4 +50,32 @@ hist(
 )
 ```
 
+```{r}
+#| label: Gráfico-disperción-penguis
+# Gráfico de dispersión de longitud del pico vs masa (peso)
+penguins |>
+  ggplot(aes(x = bill_length_mm, y = body_mass_g)) +
+  geom_point(size = 2) +
+  geom_smooth(method = "loess", se = FALSE) +
+  ggtitle("Longitud del pico vs. masa") +
+  xlab("Longitud del pico (mm)") +
+  ylab("Masa (g)") +
+  labs(color = "Especie", shape = "Especie")
+```
+### Relación entre la longitud del pico y la masa de pinguinos
+
+```{r}
+# Gráfico de dispersión de longitud del pico vs masa (peso) por especie
+penguins |>
+  ggplot(aes(x = bill_length_mm, y = body_mass_g)) +
+  geom_point(aes(color = species,
+                 shape = species),
+             size = 2) +
+  geom_smooth(method = "lm", se = FALSE, aes(color = species)) +
+  scale_color_manual(values = c("darkorange", "darkorchid", "cyan4")) +
+  ggtitle("Longitud del pico vs. masa por especie") +
+  xlab("Longitud del pico (mm)") +
+  ylab("Masa (g)") +
+  labs(color = "Especie", shape = "Especie")
+```
 
